@@ -25,7 +25,7 @@
 
       .time {
         display: table-row;
-        background-color: cyan;
+        background-color: gray;
       }
 
       .time span {
@@ -34,12 +34,21 @@
         vertical-align: middle;
         font-size: 40vmin;
       }
+
+      .time:first-child {
+        -webkit-transform:rotate(-180deg);
+      }
+
+      .time.active {
+        background-color: cyan;
+      }
+
     </style>
   </head>
   <body>
 
     <main>
-      <div class="time">
+      <div class="time active">
         <span>05:00</span>
       </div>
       <div class="time">
@@ -68,6 +77,12 @@
       };
 
       document.onmousedown = document.ontouchstart;
+
+      var timeElements = document.querySelectorAll('.time');
+      for (var i = 0; i < timeElements.length; ++i) {
+        timeElements[i].classList.toggle('active');
+      }
+
     </script>
 
   </body>
