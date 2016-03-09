@@ -51,6 +51,12 @@ SOFTWARE.
       .time {
         display: table-row;
         background-color: gray;
+        opacity: 0.5;
+      }
+
+      .time.active {
+        background-color: cyan;
+        opacity: 1;
       }
 
       .time span {
@@ -62,10 +68,6 @@ SOFTWARE.
 
       .time:first-child {
         -webkit-transform:rotate(-180deg);
-      }
-
-      .time.active {
-        background-color: cyan;
       }
 
     </style>
