@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RDX</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html, body {
+        height: 100%;
+      }
+
+      main {
+        display: table;
+        width: 100%;
+        height: 100%;
+      }
+
+      .tempo {
+        display: table-row;
+      }
+
+      .tempo span {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 40vmin;
+      }
+
+      #tempo1 {
+        background-color: cyan;
+      }
+
+      #tempo2 {
+        background-color: orange
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <article id="tempo1" class="tempo">
+        <span>05:00</span>
+      </article>
+      <article id="tempo2" class="tempo">
+        <span>05:00</span>
+      </article>
+      <audio src="clec16.mp3" type="audio/mpeg"></audio>
+
+    </main>
+
+    <script>
+      function bip() {
+        var som = /*new Audio('data:audio/mpeg;base64,' +
+            '//MkxAAGmALKOUAQAgI25CAgHOCRYfKHCgYWH+IIYv//4f3f///DCgIKAABv6+CW//MkxAgIuL7tgYJAAJ0XHK/icOFCpK5X+H93WDY/nv///wI//KCUQf/z15t9WUIK//MkxAgI+a7AAYEQAA07KhQxPEt2////ks/oZf+RXJoFEhRLEv1fWCqflq6/LY/W//MkxAcJUM6cAYFIAP+2jQDpVUnAdypLEG6+Ya//MYz///4Zf/kxTyyPWqr9f/8///MkxAQHqLqYAYFYAPXBtm5SUVBMD44qMzYY1szXp////+f+L/G/Tal///MZ1DoF//MkxAgJiKY4AcVIANVZpE0qAUAJohBElwGgK/nuS/y3/6j3BXYJQ2JXSqpMQU1F')*/
+
+            //new Audio('clec16.mp3')
+
+            document.querySelector('audio');
+            ;
+        som.play();
+      }
+
+      window.onload = function() {
+        setTimeout(function() { window.scrollTo(0, 1) }, 100);
+      };
+
+      document.ontouchmove = function(e) { e.preventDefault(); };
+
+      document.ontouchstart = function(e) {
+        console.log('asdf');
+          bip();
+      };
+
+      document.onmousedown = document.ontouchstart;
+    </script>
+
+  </body>
+</html>
