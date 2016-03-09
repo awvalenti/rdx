@@ -60,6 +60,18 @@
     <div class="spacer"></div>
 
     <script>
+      function switchPlayer() {
+        toggleTimersStates();
+        beep();
+      }
+
+      function toggleTimersStates() {
+        var timeElements = document.querySelectorAll('.time');
+        for (var i = 0; i < timeElements.length; ++i) {
+          timeElements[i].classList.toggle('active');
+        }
+      }
+
       function beep() {
         document.querySelector('audio').play();
       }
@@ -73,15 +85,10 @@
       };
 
       document.ontouchstart = function(e) {
-        beep();
+        switchPlayer();
       };
 
       document.onmousedown = document.ontouchstart;
-
-      var timeElements = document.querySelectorAll('.time');
-      for (var i = 0; i < timeElements.length; ++i) {
-        timeElements[i].classList.toggle('active');
-      }
 
     </script>
 
