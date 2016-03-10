@@ -50,13 +50,17 @@ SOFTWARE.
 
       .time {
         display: table-row;
-        background-color: gray;
+        background-color: #498888;
         opacity: 0.5;
       }
 
       .time.active {
-        background-color: cyan;
+        background-color: #00FFFF;
         opacity: 1;
+      }
+
+      .time.time-up {
+        background-color: #FF7070;
       }
 
       .time span {
@@ -82,7 +86,8 @@ SOFTWARE.
       <div class="time">
         <span>5:00</span>
       </div>
-      <audio src="clec16.mp3" type="audio/mpeg"></audio>
+      <audio id="click" src="clec16.mp3" type="audio/mpeg"></audio>
+      <audio id="time-up" src="pem16.mp3" type="audio/mpeg"></audio>
     </main>
 
     <div class="spacer"></div>
@@ -95,7 +100,7 @@ SOFTWARE.
 
       function switchPlayer() {
         toggleTimersStates();
-        beep();
+        playClickSound();
       }
 
       function toggleTimersStates() {
@@ -108,8 +113,12 @@ SOFTWARE.
         activePlayerIndex = 1 - activePlayerIndex;
       }
 
-      function beep() {
-        document.querySelector('audio').play();
+      function playClickSound() {
+        document.querySelector('audio#click').play();
+      }
+
+      function playTimeUpSound() {
+        document.querySelector('audio#time-up').play();
       }
 
       window.scrollTo(0, 1);
@@ -144,8 +153,15 @@ SOFTWARE.
 
         document.querySelectorAll('.time span')[activePlayerIndex].textContent = minutes + ':' + (seconds > 9 ? seconds : '0' + seconds);
 
-        lastTimestamp = currentTimestamp;
-        requestAnimationFrame(updateActiveTimer);
+        if (timeLeft > 0) {
+          lastTimestamp = currentTimestamp;
+          requestAnimationFrame(updateActiveTimer);
+
+        } else {
+          document.querySelectorAll('.time')[activePlayerIndex].classList.add('time-up');
+          playTimeUpSound();
+        }
+
       }
 
     </script>
