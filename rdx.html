@@ -49,15 +49,16 @@ SOFTWARE.
 
       .time {
         opacity: 0.5;
+      }
+
+      .time:first-child {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
         margin-bottom: 1vmin;
       }
 
       .time.active {
         opacity: 1;
-      }
-
-      .time.time-up {
-        background-color: #FF7070;
       }
 
       .time span {
@@ -74,9 +75,25 @@ SOFTWARE.
         background-color: #00FFFF;
       }
 
-      .time:first-child {
-        -webkit-transform:rotate(180deg);
-        transform:rotate(180deg);
+      .time.ending-soon span {
+        background-color: #FFCB38;
+      }
+
+      .time.time-up span {
+        background-color: #FF5454;
+        animation: shake 2s;
+      }
+
+      @keyframes shake {
+        5%, 15%, 25%, 35%, 45%, 55%, 65%, 75%, 85%, 95% {
+          -webkit-transform: translate3d(-8px, 0, 0);
+          transform: translate3d(-8px, 0, 0);
+        }
+
+        10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90% {
+          -webkit-transform: translate3d(8px, 0, 0);
+          transform: translate3d(8px, 0, 0);
+        }
       }
 
     </style>
@@ -102,6 +119,9 @@ SOFTWARE.
 
       var activePlayerIndex = 0;
       var timers = [5 * 60 * 1000, 5 * 60 * 1000];
+
+      // XXX For testing
+      timers = [12000, 12000];
 
       function switchPlayer() {
         toggleTimersStates();
@@ -133,8 +153,10 @@ SOFTWARE.
       };
 
       document.ontouchstart = document.onmousedown = function(e) {
-        switchPlayer();
-        e.preventDefault();
+        if (state === 'RUNNING') {
+          switchPlayer();
+          e.preventDefault();
+        }
       };
 
       if (typeof requestAnimationFrame === 'undefined') {
@@ -143,9 +165,12 @@ SOFTWARE.
 
       var lastTimestamp;
 
+      var state = 'IDLE';
+
       requestAnimationFrame(function(firstTimestamp) {
         lastTimestamp = firstTimestamp;
         requestAnimationFrame(updateActiveTimer);
+        state = 'RUNNING';
       });
 
       function updateActiveTimer(currentTimestamp) {
@@ -162,9 +187,13 @@ SOFTWARE.
           lastTimestamp = currentTimestamp;
           requestAnimationFrame(updateActiveTimer);
 
+          if (timeLeft < 10) {
+            document.querySelectorAll('.time')[activePlayerIndex].classList.add('ending-soon');
+          }
         } else {
           document.querySelectorAll('.time')[activePlayerIndex].classList.add('time-up');
           playTimeUpSound();
+          state = 'FINISHED';
         }
 
       }
