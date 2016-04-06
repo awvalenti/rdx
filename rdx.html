@@ -50,12 +50,11 @@ SOFTWARE.
 
       .time {
         display: table-row;
-        background-color: #498888;
         opacity: 0.5;
+        margin-bottom: 100px;
       }
 
       .time.active {
-        background-color: #00FFFF;
         opacity: 1;
       }
 
@@ -67,7 +66,14 @@ SOFTWARE.
         display: table-cell;
         text-align: center;
         vertical-align: middle;
-        font-size: 40vmin;
+        font-size: 30vmin;
+        background-color: #498888;
+        border: 20px solid;
+        border-radius: 20vmin;
+      }
+
+      .time.active span {
+        background-color: #00FFFF;
       }
 
       .time:first-child {
@@ -86,9 +92,10 @@ SOFTWARE.
       <div class="time">
         <span>5:00</span>
       </div>
-      <audio id="click" src="clec16.mp3" type="audio/mpeg"></audio>
-      <audio id="time-up" src="pem16.mp3" type="audio/mpeg"></audio>
     </main>
+
+    <audio id="click" src="clec16.mp3" type="audio/mpeg"></audio>
+    <audio id="time-up" src="pem16.mp3" type="audio/mpeg"></audio>
 
     <div class="spacer"></div>
 
