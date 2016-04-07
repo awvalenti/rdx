@@ -123,13 +123,17 @@ SOFTWARE.
       // XXX For testing
       timers = [12000, 12000];
 
+      // Caches DOM elements
+      var timeDivs = document.querySelectorAll('.time'),
+          timeSpans = document.querySelectorAll('.time span');
+
       function switchPlayer() {
         toggleTimersStates();
         playClickSound();
       }
 
       function toggleTimersStates() {
-        var timeElements = document.querySelectorAll('.time');
+        var timeElements = timeDivs;
         for (var i = 0; i < timeElements.length; ++i) {
           timeElements[i].classList.toggle('active');
         }
@@ -181,17 +185,17 @@ SOFTWARE.
             minutes = Math.floor(timeLeft / 60),
             seconds = timeLeft % 60;
 
-        document.querySelectorAll('.time span')[activePlayerIndex].textContent = minutes + ':' + (seconds > 9 ? seconds : '0' + seconds);
+        timeSpans[activePlayerIndex].textContent = minutes + ':' + (seconds > 9 ? seconds : '0' + seconds);
 
         if (timeLeft > 0) {
           lastTimestamp = currentTimestamp;
           requestAnimationFrame(updateActiveTimer);
 
           if (timeLeft < 10) {
-            document.querySelectorAll('.time')[activePlayerIndex].classList.add('ending-soon');
+            timeDivs[activePlayerIndex].classList.add('ending-soon');
           }
         } else {
-          document.querySelectorAll('.time')[activePlayerIndex].classList.add('time-up');
+          timeDivs[activePlayerIndex].classList.add('time-up');
           playTimeUpSound();
           state = 'FINISHED';
         }
