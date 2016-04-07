@@ -121,7 +121,7 @@ SOFTWARE.
       var timers = [5 * 60 * 1000, 5 * 60 * 1000];
 
       // XXX For testing
-      timers = [12000, 12000];
+      timers = [11 * 1000, 11 * 1000];
 
       // Caches DOM elements
       var timeDivs = document.querySelectorAll('.time'),
@@ -185,17 +185,23 @@ SOFTWARE.
             minutes = Math.floor(timeLeft / 60),
             seconds = timeLeft % 60;
 
-        timeSpans[activePlayerIndex].textContent = minutes + ':' + (seconds > 9 ? seconds : '0' + seconds);
-
         if (timeLeft > 0) {
           lastTimestamp = currentTimestamp;
           requestAnimationFrame(updateActiveTimer);
 
-          if (timeLeft < 10) {
+          if (timers[activePlayerIndex] >= 9100) {
+            timeSpans[activePlayerIndex].textContent = minutes + ':' + (seconds > 9 ? seconds : '0' + seconds);
+
+          } else {
             timeDivs[activePlayerIndex].classList.add('ending-soon');
+
+            var timeLeftWithTenths = Math.ceil(timers[activePlayerIndex] / 100) / 10;
+            if (timeLeftWithTenths === Math.ceil(timeLeftWithTenths)) timeLeftWithTenths += '.0';
+            timeSpans[activePlayerIndex].textContent = timeLeftWithTenths;
           }
         } else {
           timeDivs[activePlayerIndex].classList.add('time-up');
+          timeSpans[activePlayerIndex].textContent = '0.0';
           playTimeUpSound();
           state = 'FINISHED';
         }
