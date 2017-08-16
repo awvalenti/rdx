@@ -133,7 +133,7 @@ SOFTWARE.
       for (var file = 0; file < 8; ++file) {
         for (var rank = 0; rank < 8; ++rank) {
           var square = document.createElement('div');
-          var color = (file + rank) % 2 == 0 ? 'dark' : 'light';
+          var color = (file + rank) % 2 == 0 ? 'light' : 'dark';
           square.className = 'square ' + color;
           document.getElementById('board').appendChild(square);
         }
