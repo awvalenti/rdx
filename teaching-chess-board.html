@@ -118,6 +118,78 @@ SOFTWARE.
     </ul>
 
     <article id="board">
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+      <div class="square dark"></div>
+      <div class="square light"></div>
+
     </article>
 
     <ul class="pieces black-piece">
@@ -130,21 +202,14 @@ SOFTWARE.
     </ul>
 
     <script>
-      for (var file = 0; file < 8; ++file) {
-        for (var rank = 0; rank < 8; ++rank) {
-          var square = document.createElement('div');
-          var color = (file + rank) % 2 == 0 ? 'light' : 'dark';
-          square.className = 'square ' + color;
-          document.getElementById('board').appendChild(square);
-        }
-      }
-
-      document.querySelectorAll('.square').forEach(square => {
-        square.addEventListener('contextmenu', (e) => {
+    var squares = document.querySelectorAll('.square');
+    for (var i = 0; i < squares.length; ++i) {
+      (function(square) {
+        square.addEventListener('contextmenu', function(e) {
           if (e.shiftKey) return;
           e.preventDefault();
         });
-        square.addEventListener('mousedown', (e) => {
+        square.addEventListener('mousedown', function(e) {
           if (e.shiftKey) return;
           var input = document.querySelector('input[name="piece"]:checked'),
               label = input.nextSibling,
@@ -163,7 +228,8 @@ SOFTWARE.
 
           e.preventDefault();
         });
-      });
+      })(squares[i]);
+    }
     </script>
   </body>
 </html>
