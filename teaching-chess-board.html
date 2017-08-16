@@ -1,0 +1,169 @@
+<!--
+The MIT License (MIT)
+Copyright (c) 2017 Andre Willik Valenti
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Teaching Chess Board</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .white-piece {
+      color: white;
+      text-shadow: -2px -2px 1px black,
+                    2px -2px 1px black,
+                   -2px  2px 1px black,
+                    2px  2px 1px black;
+    }
+
+    .black-piece {
+      color: black;
+      text-shadow: -1px -1px 2px white,
+                    1px -1px 2px white,
+                   -1px  1px 2px white,
+                    1px  1px 2px white;
+    }
+
+    .pieces, #board {
+      font-size: 68pt;
+      display: inline-block;
+    }
+
+    .pieces li {
+      list-style-type: none;
+    }
+
+    .pieces:first-of-type {
+      margin-right: 0.25em;
+    }
+
+    .pieces:last-of-type {
+      margin-left: 0.25em;
+    }
+
+    .pieces li label {
+      border: 3px dotted white;
+      border-radius: 100%;
+      background-color: #84a184;
+      padding: 4px;
+    }
+
+    .pieces li input[type="radio"]:checked + label {
+      background-color: #da5d09;
+    }
+
+    #board {
+      width: 20cm;
+      height: 20cm;
+      border: 2mm double #36a534;
+    }
+
+    .square {
+      width: 2.5cm;
+      height: 2.5cm;
+      float: left;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .square.light {
+      background-color: #afafaf;
+    }
+
+    .square.dark {
+      background-color: #559f53;
+    }
+  </style>
+  <body>
+
+    <ul class="pieces white-piece">
+      <li><input name="piece" type="radio" id="white-pawn" checked autofocus><label for="white-pawn">♙</label></li>
+      <li><input name="piece" type="radio" id="white-rook"><label for="white-rook">♖</label></li>
+      <li><input name="piece" type="radio" id="white-knight"><label for="white-knight">♘</label></li>
+      <li><input name="piece" type="radio" id="white-bishop"><label for="white-bishop">♗</label></li>
+      <li><input name="piece" type="radio" id="white-queen"><label for="white-queen">♕</label></li>
+      <li><input name="piece" type="radio" id="white-king"><label for="white-king">♔</label></li>
+    </ul>
+
+    <article id="board">
+    </article>
+
+    <ul class="pieces black-piece">
+      <li><input name="piece" type="radio" id="black-pawn"><label for="black-pawn">♟</label></li>
+      <li><input name="piece" type="radio" id="black-rook"><label for="black-rook">♜</label></li>
+      <li><input name="piece" type="radio" id="black-knight"><label for="black-knight">♞</label></li>
+      <li><input name="piece" type="radio" id="black-bishop"><label for="black-bishop">♝</label></li>
+      <li><input name="piece" type="radio" id="black-queen"><label for="black-queen">♛</label></li>
+      <li><input name="piece" type="radio" id="black-king"><label for="black-king">♚</label></li>
+    </ul>
+
+    <script>
+      for (var file = 0; file < 8; ++file) {
+        for (var rank = 0; rank < 8; ++rank) {
+          var square = document.createElement('div');
+          var color = (file + rank) % 2 == 0 ? 'dark' : 'light';
+          square.className = 'square ' + color;
+          document.getElementById('board').appendChild(square);
+        }
+      }
+
+      document.querySelectorAll('.square').forEach(square => {
+        square.addEventListener('contextmenu', (e) => {
+          if (e.shiftKey) return;
+          e.preventDefault();
+        });
+        square.addEventListener('mousedown', (e) => {
+          if (e.shiftKey) return;
+          var input = document.querySelector('input[name="piece"]:checked'),
+              label = input.nextSibling,
+              ul = input.parentNode.parentNode;
+          if (e.button !== 0) square.textContent = '';
+          else {
+            square.textContent = label.textContent;
+            square.classList.remove('white-piece');
+            square.classList.remove('black-piece');
+            if (ul.classList.contains('white-piece')) {
+              square.classList.add('white-piece');
+            } else {
+              square.classList.add('black-piece');
+            }
+          };
+
+          e.preventDefault();
+        });
+      });
+    </script>
+  </body>
+</html>
