@@ -30,15 +30,6 @@ SOFTWARE.
       padding: 0;
     }
 
-    body {
-      display: flex;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-    }
-
     .white-piece {
       color: white;
       text-shadow: -2px -2px 1px #333,
@@ -105,126 +96,250 @@ SOFTWARE.
     .square.dark {
       background-color: #559f53;
     }
+
+    main, #actions {
+      display: flex;
+      position: absolute;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+
+    main {
+      height: 100%;
+    }
+
+    #actions {
+      bottom: 0;
+    }
+
+    #actions .shown {
+      list-style-type: none;
+    }
+
+    #actions .shown li {
+      display: inline-block;
+    }
+
+    #actions .shown button {
+      min-width: 10em;
+      min-height: 2em;
+      padding: 1em;
+    }
+
+    #actions .hidden {
+      display: none;
+    }
   </style>
   <body>
 
-    <ul class="pieces white-piece">
-      <li><input name="piece" type="radio" id="white-pawn" checked autofocus><label for="white-pawn">♙</label></li>
-      <li><input name="piece" type="radio" id="white-rook"><label for="white-rook">♖</label></li>
-      <li><input name="piece" type="radio" id="white-knight"><label for="white-knight">♘</label></li>
-      <li><input name="piece" type="radio" id="white-bishop"><label for="white-bishop">♗</label></li>
-      <li><input name="piece" type="radio" id="white-queen"><label for="white-queen">♕</label></li>
-      <li><input name="piece" type="radio" id="white-king"><label for="white-king">♔</label></li>
-    </ul>
+    <main>
+      <ul class="pieces white-piece">
+        <li><input name="piece" type="radio" id="white-pawn" checked autofocus><label for="white-pawn">♙</label></li>
+        <li><input name="piece" type="radio" id="white-rook"><label for="white-rook">♖</label></li>
+        <li><input name="piece" type="radio" id="white-knight"><label for="white-knight">♘</label></li>
+        <li><input name="piece" type="radio" id="white-bishop"><label for="white-bishop">♗</label></li>
+        <li><input name="piece" type="radio" id="white-queen"><label for="white-queen">♕</label></li>
+        <li><input name="piece" type="radio" id="white-king"><label for="white-king">♔</label></li>
+      </ul>
 
-    <article id="board">
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
+      <article id="board">
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
 
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
 
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
 
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
 
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
 
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
 
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
 
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
-      <div class="square dark"></div>
-      <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
+        <div class="square dark"></div>
+        <div class="square light"></div>
 
-    </article>
+      </article>
 
-    <ul class="pieces black-piece">
-      <li><input name="piece" type="radio" id="black-pawn"><label for="black-pawn">♟</label></li>
-      <li><input name="piece" type="radio" id="black-rook"><label for="black-rook">♜</label></li>
-      <li><input name="piece" type="radio" id="black-knight"><label for="black-knight">♞</label></li>
-      <li><input name="piece" type="radio" id="black-bishop"><label for="black-bishop">♝</label></li>
-      <li><input name="piece" type="radio" id="black-queen"><label for="black-queen">♛</label></li>
-      <li><input name="piece" type="radio" id="black-king"><label for="black-king">♚</label></li>
-    </ul>
+      <ul class="pieces black-piece">
+        <li><input name="piece" type="radio" id="black-pawn"><label for="black-pawn">♟</label></li>
+        <li><input name="piece" type="radio" id="black-rook"><label for="black-rook">♜</label></li>
+        <li><input name="piece" type="radio" id="black-knight"><label for="black-knight">♞</label></li>
+        <li><input name="piece" type="radio" id="black-bishop"><label for="black-bishop">♝</label></li>
+        <li><input name="piece" type="radio" id="black-queen"><label for="black-queen">♛</label></li>
+        <li><input name="piece" type="radio" id="black-king"><label for="black-king">♚</label></li>
+      </ul>
+    </main>
+
+    <div id="actions">
+      <ul class="shown">
+        <li>
+          <button type="button" onclick="document.getElementById('action-save').click()">Save</button>
+        </li>
+        <li>
+          <button type="button" onclick="document.getElementById('action-load').click()">Load</button>
+        </li>
+        <li>
+          <button type="button" onclick="if (confirm('Are you sure?')) defaultBoard();">Default</button>
+        </li>
+        <li>
+          <button type="button" onclick="if (confirm('Are you sure?')) emptyBoard();">Empty</button>
+        </li>
+      </ul>
+      <ul class="hidden">
+        <li>
+          <a id="action-save" href="" onclick="save(this)"
+              download="chess-position.utf8"></a>
+        </li>
+        <li>
+          <input id="action-load" type="file" accept=".utf8"
+              onchange="load(this)">
+        </li>
+      </ul>
+    </div>
 
     <script>
-    var squares = document.querySelectorAll('.square');
+    var squares = document.getElementById('board').children;
+    var EMPTY_CONTENT = ' ';
+
+    function setSquareContent(square, newContent) {
+      square.textContent = newContent;
+      square.classList.remove('white-piece');
+      square.classList.remove('black-piece');
+
+      if ('♙♖♘♗♕♔'.indexOf(newContent) !== -1) {
+        square.classList.add('white-piece');
+      } else if ('♟♜♞♝♛♚'.indexOf(newContent) !== -1) {
+        square.classList.add('black-piece');
+      }
+    }
+
+    function emptyBoard() {
+      for (var i = 0; i < squares.length; ++i) {
+        setSquareContent(squares[i], EMPTY_CONTENT);
+      }
+    }
+
+    emptyBoard();
+
+    function fillBoard(data) {
+      for (var i = 0, j = 0; i < data.length; ++i) {
+        var content = data.charAt(i);
+        if (content === '\n') continue;
+        setSquareContent(squares[j++], content);
+      }
+    }
+
+    function defaultBoard() {
+      fillBoard(''
+          + '♜♞♝♛♚♝♞♜'
+          + '♟♟♟♟♟♟♟♟'
+          + '        '
+          + '        '
+          + '        '
+          + '        '
+          + '♙♙♙♙♙♙♙♙'
+          + '♖♘♗♕♔♗♘♖'
+        );
+    }
+
+    function save(aElement) {
+      var dataToWrite = '';
+      for (var i = 0; i < squares.length; ++i) {
+        if (i > 0 && i % 8 === 0) dataToWrite += '\n';
+        dataToWrite += squares[i].textContent;
+      }
+      aElement.href = URL.createObjectURL(new Blob([dataToWrite]));
+    }
+
+    function load(inputElement) {
+      var file = inputElement.files[0];
+      if (!file) return;    // User has pressed cancel
+
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var dataRead = e.target.result;
+        fillBoard(dataRead);
+      };
+      reader.readAsText(file);
+
+      // Cleans input, allowing onchange to be fired again with same file
+      inputElement.value = null;
+    }
+
     for (var i = 0; i < squares.length; ++i) {
       (function(square) {
         square.addEventListener('contextmenu', function(e) {
           if (e.shiftKey) return;
           e.preventDefault();
         });
+
         square.addEventListener('mousedown', function(e) {
           if (e.shiftKey) return;
-          var input = document.querySelector('input[name="piece"]:checked'),
-              label = input.nextSibling,
-              ul = input.parentNode.parentNode;
-          if (e.button !== 0) square.textContent = '';
-          else {
-            square.textContent = label.textContent;
-            square.classList.remove('white-piece');
-            square.classList.remove('black-piece');
-            if (ul.classList.contains('white-piece')) {
-              square.classList.add('white-piece');
-            } else {
-              square.classList.add('black-piece');
-            }
-          };
+
+          var leftClick = e.button === 0;
+
+          var newContent = leftClick ? document.querySelector(
+            'input[name="piece"]:checked + label').textContent : EMPTY_CONTENT;
+
+          setSquareContent(square, newContent);
 
           e.preventDefault();
         });
