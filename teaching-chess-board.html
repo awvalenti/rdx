@@ -335,14 +335,60 @@
           var leftClick = e.button === 0;
 
           var newContent = leftClick ? document.querySelector(
-            'input[name="piece"]:checked + label').textContent : EMPTY_CONTENT;
+            'input[name="piece"]:checked').id : EMPTY_CONTENT;
 
           setSquareContent(square, newContent);
 
           e.preventDefault();
         });
+
+        square.addEventListener('mouseleave', function() {
+          currentlyPointedSquare = null;
+        });
+        square.addEventListener('mouseenter', function() {
+          currentlyPointedSquare = square;
+        });
       })(squares[i]);
     }
+
+    var currentlyPointedSquare;
+
+    document.addEventListener('keydown', function(e) {
+      if (!currentlyPointedSquare) return;
+
+      var options = optionsFor(e.key);
+      if (!options) return;
+
+      var checkedPieceIndex = options.indexOf(
+          document.querySelector('input[name="piece"]:checked').id);
+
+      var nextOption = options[(checkedPieceIndex + 1) % options.length];
+      if (nextOption !== EMPTY_CONTENT) {
+        document.getElementById(nextOption).checked = true;
+      }
+      setSquareContent(currentlyPointedSquare, nextOption);
+
+      function optionsFor(key) {
+        switch (key) {
+          case 'Delete':  // Chrome, Firefox
+          case 'Del':     // Edge
+            return EMPTY_CONTENT;
+
+          case '0': return '♔♚';
+          case '1': return '♖';
+          case '2': return '♘';
+          case '3': return '♗';
+          case '4': return '♙';
+          case '5': return '♕♛'
+          case '6': return '♟';
+          case '7': return '♜';
+          case '8': return '♞';
+          case '9': return '♝';
+
+          default: return null;
+        }
+      }
+    });
     </script>
   </body>
 </html>
