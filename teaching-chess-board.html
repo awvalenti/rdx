@@ -301,12 +301,12 @@ SOFTWARE.
     }
 
     function save(aElement) {
-      var dataToWrite = '';
+      var dataToWrite = [];
       for (var i = 0; i < squares.length; ++i) {
-        if (i > 0 && i % 8 === 0) dataToWrite += '\n';
-        dataToWrite += squares[i].textContent;
+        if (i > 0 && i % 8 === 0) dataToWrite.push('\n');
+        dataToWrite.push(squares[i].textContent);
       }
-      aElement.href = URL.createObjectURL(new Blob([dataToWrite]));
+      aElement.href = URL.createObjectURL(new Blob(dataToWrite));
     }
 
     function load(inputElement) {
