@@ -112,18 +112,11 @@ SOFTWARE.
 
     #actions {
       bottom: 0;
-    }
-
-    #actions .shown {
       list-style-type: none;
-    }
-
-    #actions .shown li {
-      display: inline-block;
       margin-bottom: 0.5em;
     }
 
-    #actions .shown li button {
+    #actions li button {
       min-width: 10em;
       min-height: 2em;
       padding: 1em;
@@ -131,13 +124,10 @@ SOFTWARE.
       margin-right: 0.5em;
     }
 
-    #actions .shown li:last-of-type button {
+    #actions li:last-of-type button {
       margin-right: 0;
     }
 
-    #actions .hidden {
-      display: none;
-    }
   </style>
   <body>
 
@@ -236,32 +226,20 @@ SOFTWARE.
       </ul>
     </main>
 
-    <div id="actions">
-      <ul class="shown">
+      <ul id="actions">
         <li>
-          <button type="button" onclick="document.getElementById('action-save').click()">Save</button>
+          <button type="button" onclick="fireActionSave()">Save</button>
         </li>
         <li>
-          <button type="button" onclick="document.getElementById('action-load').click()">Load</button>
+          <button type="button" onclick="fireActionLoad()">Load</button>
         </li>
         <li>
-          <button type="button" onclick="if (confirm('Are you sure?')) defaultBoard();">Default</button>
+          <button type="button" onclick="if (confirm('Are you sure?')) setDefaultBoard();">Default</button>
         </li>
         <li>
-          <button type="button" onclick="if (confirm('Are you sure?')) emptyBoard();">Empty</button>
-        </li>
-      </ul>
-      <ul class="hidden">
-        <li>
-          <a id="action-save" href="" onclick="save(this)"
-              download="chess-position.utf8"></a>
-        </li>
-        <li>
-          <input id="action-load" type="file" accept=".utf8"
-              onchange="load(this)">
+          <button type="button" onclick="if (confirm('Are you sure?')) setEmptyBoard();">Empty</button>
         </li>
       </ul>
-    </div>
 
     <script>
     var squares = document.getElementById('board').children;
@@ -279,23 +257,23 @@ SOFTWARE.
       }
     }
 
-    function emptyBoard() {
+    function setEmptyBoard() {
       for (var i = 0; i < squares.length; ++i) {
         setSquareContent(squares[i], EMPTY_CONTENT);
       }
     }
 
-    emptyBoard();
+    setEmptyBoard();
 
     function fillBoard(data) {
       for (var i = 0, j = 0; i < data.length; ++i) {
         var content = data.charAt(i);
-        if (content === '\n') continue;
+        if (content === '\r' || content === '\n') continue;
         setSquareContent(squares[j++], content);
       }
     }
 
-    function defaultBoard() {
+    function setDefaultBoard() {
       fillBoard(''
           + '♜♞♝♛♚♝♞♜'
           + '♟♟♟♟♟♟♟♟'
@@ -308,28 +286,40 @@ SOFTWARE.
         );
     }
 
-    function save(aElement) {
-      var dataToWrite = [];
-      for (var i = 0; i < squares.length; ++i) {
-        if (i > 0 && i % 8 === 0) dataToWrite.push('\n');
-        dataToWrite.push(squares[i].textContent);
+    function fireActionSave() {
+      function generateBlobURL() {
+        var dataToWrite = [];
+        for (var i = 0; i < squares.length; ++i) {
+          if (i > 0 && i % 8 === 0) dataToWrite.push('\n');
+          dataToWrite.push(squares[i].textContent);
+        }
+        return URL.createObjectURL(new Blob(dataToWrite));
       }
-      aElement.href = URL.createObjectURL(new Blob(dataToWrite));
+
+      var a = document.createElement('a');
+      a.download = 'chess-position.utf8';
+      a.href = generateBlobURL();
+
+      // Necessary for Firefox
+      document.body.appendChild(a);
+
+      a.click();
+
+      document.body.removeChild(a);
     }
 
-    function load(inputElement) {
-      var file = inputElement.files[0];
-      if (!file) return;    // User has pressed cancel
-
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var dataRead = e.target.result;
-        fillBoard(dataRead);
+    function fireActionLoad() {
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.utf8';
+      input.onchange = function() {
+        var chosenFile = input.files[0];
+        if (!chosenFile) return;
+        var reader = new FileReader();
+        reader.onload = function() { fillBoard(reader.result); };
+        reader.readAsText(chosenFile);
       };
-      reader.readAsText(file);
-
-      // Cleans input, allowing onchange to be fired again with same file
-      inputElement.value = null;
+      input.click();
     }
 
     for (var i = 0; i < squares.length; ++i) {
