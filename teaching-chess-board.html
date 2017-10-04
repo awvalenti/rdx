@@ -372,6 +372,8 @@
         switch (key) {
           case 'Delete':  // Chrome, Firefox
           case 'Del':     // Edge
+          case '.':
+          case ',':
             return EMPTY_CONTENT;
 
           case '0': return '♔♚';
