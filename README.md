@@ -1,6 +1,6 @@
 # Teaching Chess Board
-An HTML/CSS/JavaScript offline application to create, save and load chess
-board positions. Useful for chess classes.
+An offline web application to create, view, save and load chess
+board positions, made with HTML/CSS/JavaScript and Unicode.
 
 # Usage
 Access file
