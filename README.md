@@ -1,7 +1,11 @@
-# rdx
-Download
-[teaching-chess-board.html](https://raw.githubusercontent.com/awvalenti/rdx/master/teaching-chess-board.html)
-to use.
+# Teaching Chess Board
+An HTML/CSS/JavaScript offline application to create, save and load chess
+board positions. Useful for chess classes.
+
+# Usage
+Access file
+[index.html](https://raw.githubusercontent.com/awvalenti/rdx/master/index.html),
+save it on your hard disk and open it.
 
 # History
 Originally, this repository hosted a project whose goal was to develop an
