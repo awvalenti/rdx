@@ -9,6 +9,7 @@ save it on your hard disk and open it on your web browser.
 
 # Usage
 Via mouse: left-click inserts a piece. Middle or right-click removes it.
+
 Via keyboard: keys 0-9 insert pieces. Delete key removes them.
 
 # History
