@@ -17,5 +17,5 @@ offline web chess clock application that worked on iPod Touch with iOS 6.
 Unfortunately, due to a restriction (and misbehavior) on sound capabilities
 of Safari, this project ended up being non-viable and was discontinued.
 
-It also used to host an HTML/CSS chessboard to print, which was used to create
-a handcrafted physical chessboard.
+It also used to host an HTML/CSS chessboard to print, which was used to
+handcraft a physical chessboard.
