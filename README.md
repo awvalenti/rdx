@@ -16,4 +16,13 @@ and open it on your web browser.
 # Commands
 Mouse: left-click inserts a piece. Middle or right-click removes it.
 
-Keyboard: keys 0-9 insert pieces. Delete key removes them.
+Keyboard: keys 0-9 insert pieces (they will make sense on the numeric
+keypad). Delete or NumPad dot removes them.
+
+# To be done
+- Adapt dynamically to different screen sizes (currently, we need to zoom
+in or out until a good fit is reached)
+- Better how-to-use explanation
+- Validation of chess positions
+- Possibility to export to PGN
+- Much more stuff!
