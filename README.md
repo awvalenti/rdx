@@ -7,6 +7,8 @@ Code is condensed on a single HTML file for some reasons:
 - Zero project setup
 - Code is small enough
 
+Newer JavaScript features were not used, hopefully improving compatibility.
+
 # How to run...
 
 ## ...from the internet
