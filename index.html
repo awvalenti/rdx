@@ -225,132 +225,66 @@ SOFTWARE.
 
     <ul id="actions">
       <li>
-        <button type="button" onclick="fireActionSave()">Save</button>
+        <button type="button" onclick="save()">Save</button>
       </li>
       <li>
-        <button type="button" onclick="fireActionLoad()">Load</button>
+        <button type="button" onclick="load()">Load</button>
       </li>
       <li>
-        <button type="button" onclick="if (confirm('Are you sure?')) setDefaultBoard();">Default</button>
+        <button type="button" onclick="initial()">Initial</button>
       </li>
       <li>
-        <button type="button" onclick="if (confirm('Are you sure?')) setEmptyBoard();">Empty</button>
+        <button type="button" onclick="empty()">Empty</button>
       </li>
     </ul>
 
     <script>
     var squares = document.getElementById('board').children;
     var EMPTY_CONTENT = ' ';
+    var currentlyPointedSquare;
 
-    function setSquareContent(square, newContent) {
-      square.textContent = newContent;
-      square.classList.remove('white-piece');
-      square.classList.remove('black-piece');
-
-      if ('♙♖♘♗♕♔'.indexOf(newContent) !== -1) {
-        square.classList.add('white-piece');
-      } else if ('♟♜♞♝♛♚'.indexOf(newContent) !== -1) {
-        square.classList.add('black-piece');
-      }
-    }
-
-    function setEmptyBoard() {
-      for (var i = 0; i < squares.length; ++i) {
-        setSquareContent(squares[i], EMPTY_CONTENT);
-      }
+    document.addEventListener('keydown', keydown);
+    for (var i = 0; i < squares.length; ++i) {
+      var square = squares[i];
+      square.addEventListener('mousedown', mousedown.bind(null, square));
+      square.addEventListener('contextmenu', contextmenu);
+      square.addEventListener('mouseleave', mouseleave);
+      square.addEventListener('mouseenter', mouseenter.bind(null, square));
     }
 
     setEmptyBoard();
 
-    function fillBoard(data) {
-      for (var i = 0, j = 0; i < data.length; ++i) {
-        var content = data.charAt(i);
-        if (content === '\r' || content === '\n') continue;
-        setSquareContent(squares[j++], content);
-      }
+    // ------------------------------
+
+    // Event handlers
+    // ------------------------------
+    function mousedown(square, e) {
+      if (e.shiftKey) return;
+
+      var leftClick = e.button === 0;
+
+      var newContent = leftClick ? document.querySelector(
+        'input[name="piece"]:checked').id : EMPTY_CONTENT;
+
+      setSquareContent(square, newContent);
+
+      e.preventDefault();
     }
 
-    function setDefaultBoard() {
-      fillBoard(''
-          + '♜♞♝♛♚♝♞♜'
-          + '♟♟♟♟♟♟♟♟'
-          + '        '
-          + '        '
-          + '        '
-          + '        '
-          + '♙♙♙♙♙♙♙♙'
-          + '♖♘♗♕♔♗♘♖'
-        );
+    function contextmenu(e) {
+      if (e.shiftKey) return;
+      e.preventDefault();
     }
 
-    function fireActionSave() {
-      function generateBlobURL() {
-        var dataToWrite = [];
-        for (var i = 0; i < squares.length; ++i) {
-          if (i > 0 && i % 8 === 0) dataToWrite.push('\n');
-          dataToWrite.push(squares[i].textContent);
-        }
-        return URL.createObjectURL(new Blob(dataToWrite));
-      }
-
-      var a = document.createElement('a');
-      a.download = 'chess-position.utf8';
-      a.href = generateBlobURL();
-
-      // Necessary for Firefox
-      document.body.appendChild(a);
-
-      a.click();
-
-      document.body.removeChild(a);
+    function mouseleave() {
+      currentlyPointedSquare = null;
     }
 
-    function fireActionLoad() {
-      var input = document.createElement('input');
-      input.type = 'file';
-      input.accept = '.utf8';
-      input.onchange = function() {
-        var chosenFile = input.files[0];
-        if (!chosenFile) return;
-        var reader = new FileReader();
-        reader.onload = function() { fillBoard(reader.result); };
-        reader.readAsText(chosenFile);
-      };
-      input.click();
+    function mouseenter(square) {
+      currentlyPointedSquare = square;
     }
 
-    for (var i = 0; i < squares.length; ++i) {
-      (function(square) {
-        square.addEventListener('contextmenu', function(e) {
-          if (e.shiftKey) return;
-          e.preventDefault();
-        });
-
-        square.addEventListener('mousedown', function(e) {
-          if (e.shiftKey) return;
-
-          var leftClick = e.button === 0;
-
-          var newContent = leftClick ? document.querySelector(
-            'input[name="piece"]:checked').id : EMPTY_CONTENT;
-
-          setSquareContent(square, newContent);
-
-          e.preventDefault();
-        });
-
-        square.addEventListener('mouseleave', function() {
-          currentlyPointedSquare = null;
-        });
-        square.addEventListener('mouseenter', function() {
-          currentlyPointedSquare = square;
-        });
-      })(squares[i]);
-    }
-
-    var currentlyPointedSquare;
-
-    document.addEventListener('keydown', function(e) {
+    function keydown(e) {
       if (!currentlyPointedSquare) return;
 
       var options = optionsFor(e.key);
@@ -387,7 +321,100 @@ SOFTWARE.
           default: return null;
         }
       }
-    });
+    }
+
+    // ------------------------------
+
+    // Board-changing functions
+    // ------------------------------
+    function setSquareContent(square, newContent) {
+      square.textContent = newContent;
+      square.classList.remove('white-piece');
+      square.classList.remove('black-piece');
+
+      if ('♙♖♘♗♕♔'.indexOf(newContent) !== -1) {
+        square.classList.add('white-piece');
+      } else if ('♟♜♞♝♛♚'.indexOf(newContent) !== -1) {
+        square.classList.add('black-piece');
+      }
+    }
+
+    function setEmptyBoard() {
+      for (var i = 0; i < squares.length; ++i) {
+        setSquareContent(squares[i], EMPTY_CONTENT);
+      }
+    }
+
+    function fillBoard(data) {
+      for (var i = 0, j = 0; i < data.length; ++i) {
+        var content = data.charAt(i);
+        if (content === '\r' || content === '\n') continue;
+        setSquareContent(squares[j++], content);
+      }
+    }
+
+    // Actions
+    // ------------------------------------------
+    function save() {
+      var a = document.createElement('a');
+      a.download = 'chess-position.utf8';
+      a.href = generateBlobURL();
+
+      // Necessary for Firefox
+      document.body.appendChild(a);
+
+      a.click();
+
+      document.body.removeChild(a);
+
+      function generateBlobURL() {
+        var dataToWrite = [];
+        for (var i = 0; i < squares.length; ++i) {
+          if (i > 0 && i % 8 === 0) dataToWrite.push('\n');
+          dataToWrite.push(squares[i].textContent);
+        }
+        return URL.createObjectURL(new Blob(dataToWrite));
+      }
+    }
+
+    function load() {
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.utf8';
+      input.onchange = function() {
+        var chosenFile = input.files[0];
+        if (!chosenFile) return;
+        var reader = new FileReader();
+        reader.onload = function() { fillBoard(reader.result); };
+        reader.readAsText(chosenFile);
+      };
+      input.click();
+    }
+
+    function initial() {
+      if (confirmed()) {
+        fillBoard(''
+          + '♜♞♝♛♚♝♞♜'
+          + '♟♟♟♟♟♟♟♟'
+          + '        '
+          + '        '
+          + '        '
+          + '        '
+          + '♙♙♙♙♙♙♙♙'
+          + '♖♘♗♕♔♗♘♖'
+        );
+      }
+    }
+
+    function empty() {
+      if (confirmed()) setEmptyBoard();
+    }
+
+    function confirmed() {
+      return confirm('Are you sure?');
+    }
+    // ------------------------------------------
+
     </script>
   </body>
 </html>
