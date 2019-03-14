@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -31,42 +31,35 @@ SOFTWARE.
 
     .white-piece {
       color: white;
-      text-shadow: -2px -2px 1px #333,
-                    2px -2px 1px #333,
-                   -2px  2px 1px #333,
-                    2px  2px 1px #333;
+      text-shadow: -0.2vmin -0.2vmin 0.1vmin #333,
+                    0.2vmin -0.2vmin 0.1vmin #333,
+                   -0.2vmin  0.2vmin 0.1vmin #333,
+                    0.2vmin  0.2vmin 0.1vmin #333;
     }
 
     .black-piece {
       color: black;
-      text-shadow: -1px -1px 2px #fff,
-                    1px -1px 2px #fff,
-                   -1px  1px 2px #fff,
-                    1px  1px 2px #fff;
+      text-shadow: -0.1vmin -0.1vmin 0.2vmin #fff,
+                    0.1vmin -0.1vmin 0.2vmin #fff,
+                   -0.1vmin  0.1vmin 0.2vmin #fff,
+                    0.1vmin  0.1vmin 0.2vmin #fff;
     }
 
     .pieces, #board {
-      font-size: 68pt;
+      font-size: 10vmin;
       display: inline-block;
     }
 
     .pieces li {
       list-style-type: none;
-    }
-
-    .pieces:first-of-type {
-      margin-right: 0.25em;
-    }
-
-    .pieces:last-of-type {
-      margin-left: 0.25em;
+      white-space: nowrap;
     }
 
     .pieces li label {
-      border: 3px dotted white;
+      border: 0.4vmin dotted white;
       border-radius: 100%;
       background-color: #84a184;
-      padding: 4px;
+      padding: 0.5vmin;
     }
 
     .pieces li input[type="radio"]:checked + label {
@@ -74,15 +67,17 @@ SOFTWARE.
     }
 
     #board {
-      width: 20cm;
-      height: 20cm;
-      border: 2mm double #36a534;
-      box-shadow: 2px 2px 10px 0 #444;
+      margin-left: 2vmin;
+      margin-right: 2vmin;
+      width: 80vmin;
+      height: 80vmin;
+      border: 0.8vmin double #36a534;
+      box-shadow: 0.5vmin 0.5vmin 2.5vmin 0 #444;
     }
 
     .square {
-      width: 2.5cm;
-      height: 2.5cm;
+      width: 12.5%;
+      height: 12.5%;
       float: left;
       display: flex;
       justify-content: center;
@@ -106,21 +101,23 @@ SOFTWARE.
     }
 
     main {
-      height: 100%;
+      height: 90vmin;
     }
 
     #actions {
-      bottom: 0;
+      height: 10vmin;
+      bottom: 1vmin;
       list-style-type: none;
-      margin-bottom: 0.5em;
     }
 
     #actions li button {
-      min-width: 10em;
-      min-height: 2em;
-      padding: 1em;
-      box-shadow: 3px 3px 2px 0px black;
-      margin-right: 0.5em;
+      font-size: 3vmin;
+      min-width: 15vmin;
+      min-height: 5vmin;
+      padding: 1.3vmin;
+      box-shadow: 0.3vmin 0.3vmin 0.2vmin 0 black;
+      margin-right: 5vmin;
+      border-radius: 1vmin;
     }
 
     #actions li:last-of-type button {
@@ -226,20 +223,20 @@ SOFTWARE.
       </ul>
     </main>
 
-      <ul id="actions">
-        <li>
-          <button type="button" onclick="fireActionSave()">Save</button>
-        </li>
-        <li>
-          <button type="button" onclick="fireActionLoad()">Load</button>
-        </li>
-        <li>
-          <button type="button" onclick="if (confirm('Are you sure?')) setDefaultBoard();">Default</button>
-        </li>
-        <li>
-          <button type="button" onclick="if (confirm('Are you sure?')) setEmptyBoard();">Empty</button>
-        </li>
-      </ul>
+    <ul id="actions">
+      <li>
+        <button type="button" onclick="fireActionSave()">Save</button>
+      </li>
+      <li>
+        <button type="button" onclick="fireActionLoad()">Load</button>
+      </li>
+      <li>
+        <button type="button" onclick="if (confirm('Are you sure?')) setDefaultBoard();">Default</button>
+      </li>
+      <li>
+        <button type="button" onclick="if (confirm('Are you sure?')) setEmptyBoard();">Empty</button>
+      </li>
+    </ul>
 
     <script>
     var squares = document.getElementById('board').children;
