@@ -2,6 +2,11 @@
 An offline tool to create, view, save and load chess
 board positions, made with pure HTML/CSS/JavaScript and Unicode.
 
+Code is condensed on a single HTML file for some reasons:
+- Easy distribution
+- Zero project setup
+- Code is small enough
+
 # How to run...
 
 ## ...from the internet
@@ -13,6 +18,9 @@ Download `index.html` by right-clicking
 [here](https://raw.githubusercontent.com/awvalenti/teaching-chess-board/master/index.html),
 choose **"Save link as"** or similar, save it on your computer
 and open it on your web browser.
+
+If you have any problems, try downloading `index.html` file
+from some [releases](older release).
 
 # Commands
 Mouse: left-click inserts a piece. Middle or right-click removes it.
