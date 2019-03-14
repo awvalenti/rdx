@@ -19,8 +19,8 @@ Download `index.html` by right-clicking
 choose **"Save link as"** or similar, save it on your computer
 and open it on your web browser.
 
-If you have any problems, try downloading `index.html` file
-from some [older release](releases).
+If you have any problems, try downloading `index.html` file from some
+[older release](https://github.com/awvalenti/teaching-chess-board/releases).
 
 # Commands
 Mouse: left-click inserts a piece. Middle or right-click removes it.
