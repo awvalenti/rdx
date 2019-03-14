@@ -23,15 +23,12 @@ If you have any problems, try downloading `index.html` file from some
 [older release](https://github.com/awvalenti/teaching-chess-board/releases).
 
 # Commands
-Mouse: left-click inserts a piece. Middle or right-click removes it.
+**Mouse**: left-click inserts a piece. Middle or right-click removes it.
 
-Keyboard: keys 0-9 insert pieces (they will make sense on the numeric
-keypad). Delete or NumPad dot removes them.
+**Keyboard** (numeric keypad recommended): keys 0-9 insert pieces.
+Delete or NumPad dot removes them.
 
 # To be done
-- Adapt dynamically to different screen sizes (currently, we need to
-  zoom in or out until a good fit is reached)
-- Better how-to-use explanation
+- Better explanation of how to use
 - Validation of chess positions
 - Possibility to export to PGN
-- Much more stuff!
